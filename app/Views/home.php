@@ -1,3 +1,7 @@
+<?= $this->extend('layout/layout_default') ?>
+
+<?= $this->section('conteudo') ?>
+
 <main class="site-main">
 
     <section class="section-margin calc-60px">
@@ -16,7 +20,7 @@
                     </div>
                     <div class="card-body">
                         <p>Acessórios</p>
-                        <h4 class="card-product__title"><a href="index.php?view=produto-detalhe">Quartz Belt Watch</a></h4>
+                        <h4 class="card-product__title"><a href="produtoDetalhe/100">Quartz Belt Watch</a></h4>
                         <p class="card-product__price">R$ 150.00</p>
                     </div>
                 </div>
@@ -294,3 +298,5 @@
     </section>
 
 </main>
+
+<?= $this->endSection() ?>

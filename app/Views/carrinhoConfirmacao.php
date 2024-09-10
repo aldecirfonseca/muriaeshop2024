@@ -1,3 +1,7 @@
+<?= $this->extend('layout/layout_default') ?>
+
+<?= $this->section('conteudo') ?>
+
 <section>
     <div class="container">
         <div class="blog-banner">
@@ -128,3 +132,5 @@
         </div>
     </div>
 </section>
+
+<?= $this->endSection() ?>

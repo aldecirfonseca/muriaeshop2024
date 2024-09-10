@@ -8,16 +8,16 @@
         
         <title>Muriaé | Shop</title>
 
-        <link rel="icon" href="assets/img/Fevicon.png" type="image/png">
-        <link rel="stylesheet" href="assets/vendors/bootstrap/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/vendors/fontawesome/css/all.min.css">
-        <link rel="stylesheet" href="assets/vendors/themify-icons/themify-icons.css">
-        <link rel="stylesheet" href="assets/vendors/nice-select/nice-select.css">
-        <link rel="stylesheet" href="assets/vendors/owl-carousel/owl.theme.default.min.css">
-        <link rel="stylesheet" href="assets/vendors/owl-carousel/owl.carousel.min.css">
+        <link rel="icon" href="<?= base_url("assets/img/Fevicon.png") ?>" type="image/png">
+        <link rel="stylesheet" href="<?= base_url("assets/vendors/bootstrap/bootstrap.min.css") ?>">
+        <link rel="stylesheet" href="<?= base_url("assets/vendors/fontawesome/css/all.min.css") ?>">
+        <link rel="stylesheet" href="<?= base_url("assets/vendors/themify-icons/themify-icons.css") ?>">
+        <link rel="stylesheet" href="<?= base_url("assets/vendors/nice-select/nice-select.css") ?>">
+        <link rel="stylesheet" href="<?= base_url("assets/vendors/owl-carousel/owl.theme.default.min.css") ?>">
+        <link rel="stylesheet" href="<?= base_url("assets/vendors/owl-carousel/owl.carousel.min.css") ?>">
 
-        <link rel="stylesheet" href="assets/css/style.css">
-        <link rel="stylesheet" href="assets/css/customizado.css">
+        <link rel="stylesheet" href="<?= base_url("assets/css/style.css") ?>">
+        <link rel="stylesheet" href="<?= base_url("assets/css/customizado.css") ?>">
     </head>
 
     <body>
@@ -33,7 +33,7 @@
                         </button>
                         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                             <ul class="nav navbar-nav menu_nav ml-auto mr-auto">
-                                <li class="nav-item active"><a class="nav-link" href="index.php">Home</a></li>
+                                <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
                                 
                                 <li class="nav-item submenu dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Departamentos</a>
@@ -45,8 +45,8 @@
                                     </ul>
                                 </li>                                  
                                 
-                                <li class="nav-item"><a class="nav-link" href="index.php?pagina=sobrenos">Sobre nós</a></li>
-                                <li class="nav-item"><a class="nav-link" href="index.php?pagina=contato">Contato</a></li>
+                                <li class="nav-item"><a class="nav-link" href="sobrenos">Sobre nós</a></li>
+                                <li class="nav-item"><a class="nav-link" href="contato">Contato</a></li>
 
                                 <?php
                                 if (1 == 2) {
@@ -61,7 +61,7 @@
                                             <li class="nav-item"><a class="nav-link" href="#">Meus pedidos</a></li>
                                             <li class="nav-item"><a class="nav-link" href="#">Perfil</a></li>
                                             <li class="nav-item"><a class="nav-link" href="#">Trocar Senha</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="Departamento">Departamento</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="/Departamento">Departamento</a></li>
                                         </ul>
                                     </li>                            
                                     <?php
@@ -83,7 +83,7 @@
                             </div>
 
                             <ul class="nav-shop">
-                                <a href="index.php?pagina=carrinhoCompras">
+                                <a href="carrinhoCompras">
                                     <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button> </li>
                                 </a>
                             </ul>                    
@@ -96,17 +96,7 @@
 
         <main class="container">
             <section>
-                <?php
-
-                    $pagina = "home";
-
-                    if (isset($_GET['pagina'])) {
-                        $pagina = $_GET['pagina'];
-                    }
-
-                    require_once $pagina . ".php";
-
-                ?>
+                <?= $this->renderSection('conteudo') ?>
             </section>
         </main>
         
@@ -177,13 +167,13 @@
             </div>
         </footer>
 
-        <script src="assets/vendors/jquery/jquery-3.2.1.min.js"></script>
-        <script src="assets/vendors/bootstrap/bootstrap.bundle.min.js"></script>
-        <script src="assets/vendors/skrollr.min.js"></script>
-        <script src="assets/vendors/owl-carousel/owl.carousel.min.js"></script>
-        <script src="assets/vendors/jquery.ajaxchimp.min.js"></script>
-        <script src="assets/vendors/mail-script.js"></script>
-        <script src="assets/js/main.js"></script>
+        <script src="<?= base_url('assets/vendors/jquery/jquery-3.2.1.min.js') ?>"></script>
+        <script src="<?= base_url('assets/vendors/bootstrap/bootstrap.bundle.min.js') ?>"></script>
+        <script src="<?= base_url('assets/vendors/skrollr.min.js') ?>"></script>
+        <script src="<?= base_url('assets/vendors/owl-carousel/owl.carousel.min.js') ?>"></script>
+        <script src="<?= base_url('assets/vendors/jquery.ajaxchimp.min.js') ?>"></script>
+        <script src="<?= base_url('assets/vendors/mail-script.js') ?>"></script>
+        <script src="<?= base_url('assets/js/main.js') ?>"></script>
         
     </body>
 

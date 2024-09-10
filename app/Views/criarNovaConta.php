@@ -1,3 +1,7 @@
+<?= $this->extend('layout/layout_default') ?>
+
+<?= $this->section('conteudo') ?>
+
 <section>
     <div class="container">
         <div class="blog-banner">
@@ -18,7 +22,7 @@
                         <p>
                             Faça seu login e curta, comente, marcar como lido nossos conteúdos criados para você.
                         </p>
-                        <a class="button button-account" href="index.php?pagina=login">Login</a>
+                        <a class="button button-account" href="login">Login</a>
                     </div>
                 </div>
             </div>
@@ -56,3 +60,5 @@
         </div>
     </div>
 </section>
+
+<?= $this->endSection() ?>

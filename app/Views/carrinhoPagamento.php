@@ -1,3 +1,7 @@
+<?= $this->extend('layout/layout_default') ?>
+
+<?= $this->section('conteudo') ?>
+
 <section>
     <div class="container">
         <div class="blog-banner">
@@ -11,7 +15,7 @@
     <div class="container">
         <div class="returning_customer">
             <div class="check_title">
-                <h2>Não tem cadastro? <a href="index.php?pagina=criarNovaConta">Clique aqui para cadastrar</a></h2>
+                <h2>Não tem cadastro? <a href="criarNovaConta">Clique aqui para cadastrar</a></h2>
             </div>
             <form class="row contact_form mt-1" action="#" method="post" novalidate="novalidate">
                 <div class="col-md-6 form-group p_star">
@@ -148,7 +152,7 @@
                             <a href="#">Termos e condições*</a>
                         </div>
                         <div class="text-center">
-                            <a class="button button-paypal" href="index.php?pagina=carrinhoConfirmacao">Confirmar
+                            <a class="button button-paypal" href="carrinhoConfirmacao">Confirmar
                                 Pagamento</a>
                         </div>
                     </div>
@@ -157,3 +161,5 @@
         </div>
     </div>
 </section>
+
+<?= $this->endSection() ?>

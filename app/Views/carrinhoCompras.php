@@ -1,3 +1,7 @@
+<?= $this->extend('layout/layout_default') ?>
+
+<?= $this->section('conteudo') ?>
+
 <section>
     <div class="container">
         <div class="blog-banner">
@@ -171,7 +175,7 @@
                             <td>
                                 <div class="checkout_btn_inner d-flex align-items-center">
                                     <a class="gray_btn" href="index.php">Continue comprando</a>
-                                    <a class="primary-btn ml-2" href="index.php?pagina=carrinhoPagamento">Pagamento</a>
+                                    <a class="primary-btn ml-2" href="carrinhoPagamento">Pagamento</a>
                                 </div>
                             </td>
                         </tr>
@@ -181,3 +185,5 @@
         </div>
     </div>
 </section>
+
+<?= $this->endSection() ?>

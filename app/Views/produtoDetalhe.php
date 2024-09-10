@@ -1,3 +1,7 @@
+<?= $this->extend('layout/layout_default') ?>
+
+<?= $this->section('conteudo') ?>
+
 <section>
     <div class="container">
         <div class="blog-banner">
@@ -14,7 +18,7 @@
             <div class="col-lg-6">
                 <div class="owl-carousel owl-theme s_Product_carousel">
                     <div class="single-prd-item">
-                        <img class="img-fluid" src="assets/img/produto/produto1.png" alt="">
+                        <img class="img-fluid" src="<?= base_url('assets/img/produto/produto1.png') ?>" alt="">
                     </div>
                 </div>
             </div>
@@ -183,3 +187,5 @@
         </div>
     </div>
 </section>
+
+<?= $this->endSection() ?>

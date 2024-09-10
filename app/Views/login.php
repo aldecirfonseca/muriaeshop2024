@@ -1,3 +1,7 @@
+<?= $this->extend('layout/layout_default') ?>
+
+<?= $this->section('conteudo') ?>
+
 <section>
     <div class="container">
         <div class="blog-banner">
@@ -18,7 +22,7 @@
                         <p>
                             Crie uma conta para poder curtir, comentar, marcar como lido nossos conteúdos criados para você.
                         </p>
-                        <a class="button button-account" href="index.php?pagina=criarNovaConta">Crie sua conta aqui</a>
+                        <a class="button button-account" href="criarNovaConta">Crie sua conta aqui</a>
                     </div>
                 </div>
             </div>
@@ -48,3 +52,5 @@
         </div>
     </div>
 </section>
+
+<?= $this->endSection() ?>
