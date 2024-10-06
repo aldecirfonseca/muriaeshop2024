@@ -2,14 +2,17 @@
 
 namespace App\Controllers;
 
+use App\Models\DepartamentoModel;
+
 class Departamento extends BaseController
 {
     public function index()
     {
-        $data['dados'] = [
-            ['id' => 100, 'descricao' => "Geladeira"],
-            ['id' => 150, 'descricao' => "Computadores"],
-        ];
+        $DepartamentoModel = new DepartamentoModel();
+
+        $data['dados'] = $DepartamentoModel
+                            ->groupBy("descricao")
+                            ->findAll();
 
         return view("admin/listaDepartamento", $data);
     }
