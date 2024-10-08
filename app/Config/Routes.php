@@ -21,7 +21,7 @@ $routes->get('produtoDetalhe/(:num)', 'Home::produtoDetalhe/$1');
 $routes->group('Departamento', function($routes) {
     $routes->get("/", 'Departamento::index');
     $routes->get("lista", 'Departamento::index');
-    $routes->get("form/(:segment)/(:num)", 'Departamento::criar/$1/$2');
+    $routes->get("form/(:segment)/(:num)", 'Departamento::form/$1/$2');
     $routes->post("store", 'Departamento::store');
     $routes->post('delete', "Departamento::delete");
 });

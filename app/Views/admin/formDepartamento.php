@@ -1,32 +1,41 @@
+<?= $this->extend('layout/layout_default') ?>
+
+<?= $this->section('conteudo') ?>
+
 <main class="container">
 
+    <?= exibeTitulo("Departamento", ['acao' => $action]) ?>
+
     <section class="mb-5">
+
+        <?= form_open("Departamento/" . ($action == "delete" ? "delete" : "store")) ?>
 
             <div class="row">
 
                 <div class="form-group col-12 col-md-8">
                     <label for="descricao" class="form-label">Descrição</label>
-                    <input type="text" name="descricao" id="descricao"  class="form-control" maxlength="50" value="" required autofocus>
+                    <input type="text" name="descricao" id="descricao"  class="form-control" maxlength="50" value="<?= setValor("descricao", $data) ?>" required autofocus>
+                    <?= setaMsgErrorCampo("descricao", $errors) ?>
                 </div>
 
                 <div class="form-group col-12 col-md-4">
-                    <label for="statusRegistro" class="form-label">Status</label>
-                    <select name="statusRegistro" id="statusRegistro" class="form-control" required>
-                        <option value="">.....</option>
-                        <option value="1">Ativo</option>
-                        <option value="2">Inativo</option>
-                    </select>
+                    <?= comboboxStatus(setValor("statusRegistro", $data)) ?>
+                    <?= setaMsgErrorCampo("statusRegistro", $errors) ?>
                 </div>
 
-                <input type="hidden" name="action" value="">
-                <input type="hidden" name="id" value="">
+                <input type="hidden" name="action" value="<?= $action ?>">
+                <input type="hidden" name="id" value="<?= setValor("id", $data) ?>">
 
-                <a href="<?= base_url() ?>/Departamento">Voltar</a>
-                <button type="submit" value="submit" class="button button-login ml-3">Gravar</button>
-
+                <a href="<?= base_url() ?>/Departamento" class="ml-3">Voltar</a>
+                <?php if ($action != 'view'): ?>
+                    <button type="submit" value="submit" class="button button-login ml-3">Gravar</button>
+                <?php endif; ?>
             </div>
+
+        <?= form_close() ?>
 
     </section>
     
 </main>
 
+<?= $this->endSection() ?>

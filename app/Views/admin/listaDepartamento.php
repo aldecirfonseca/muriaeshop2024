@@ -23,11 +23,11 @@
                         <tr>                    
                             <td><?= $value['id'] ?></td>
                             <td><?= $value['descricao'] ?></td>
-                            <td>Ativo</td>
+                            <td><?= mostraStatus($value['statusRegistro']) ?></td>
                             <td>
-                                <a href="/Departamento/form/view/1" class="btn btn-secondary btn-sm btn-icons-crud" title="Visualizar"><i class="fa fa-eye" aria-hidden="true"></i></a>    
-                                <a href="/Departamento/form/update/1" class="btn btn-secondary btn-sm btn-icons-crud" title="Alterar"><i class="fa fa-file" aria-hidden="true"></i></a>    
-                                <a href="/Departamento/form/delete/1" class="btn btn-secondary btn-sm btn-icons-crud" title="Excluir"><i class="fa fa-trash" aria-hidden="true"></i></a>                               
+                                <a href="/Departamento/form/view/<?= $value['id'] ?>" class="btn btn-secondary btn-sm btn-icons-crud" title="Visualizar"><i class="fa fa-eye" aria-hidden="true"></i></a>    
+                                <a href="/Departamento/form/update/<?= $value['id'] ?>" class="btn btn-secondary btn-sm btn-icons-crud" title="Alterar"><i class="fa fa-file" aria-hidden="true"></i></a>    
+                                <a href="/Departamento/form/delete/<?= $value['id'] ?>" class="btn btn-secondary btn-sm btn-icons-crud" title="Excluir"><i class="fa fa-trash" aria-hidden="true"></i></a>                               
                             </td>
                         </tr>
                     <?php endforeach; ?>

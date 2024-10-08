@@ -14,14 +14,16 @@ class DepartamentoModel extends Model
     protected $useTimestamps = true;
     protected $useSoftDeletes = true;
 
+    /*
     protected $validationRules = [
         'descricao' => [
             'label' => 'Descrição',
-            'rules' => 'required|min_length[3]|max_length[50]',
+            'rules' => 'required|min_length[3]|max_length[50]'
         ],
         "statusRegistro", [
             'label' => 'Status',
-            'rules' => 'required|integer',
+            'rules' => 'required|integer'
         ]
     ];
+    */
 }

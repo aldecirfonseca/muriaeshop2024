@@ -38,7 +38,7 @@
                                     <h1 style="color: #384aeb;">' . $subTitulo . '</h1>
                                 </div>
                                 <div class="col-2 mt-5 mb-5 text-right">
-                                    <a href="' .  base_url() . '/' . $parametro['controller'] . $link . '" class="btn btn-secondary btn-sm btn-icons-crud" title="Novo"><i class="fa fa-' . $icone .'" aria-hidden="true"></i></a>    
+                                    <a href="' .  base_url() . $parametro['controller'] . $link . '" class="btn btn-secondary btn-sm btn-icons-crud" title="Novo"><i class="fa fa-' . $icone .'" aria-hidden="true"></i></a>    
                                 </div>
                             </div>
                         </div>
@@ -161,7 +161,7 @@
      * @param mixed $valorDefault 
      * @return mixed
      */
-    function setaValor($campo, $dados = [], $valorDefault = "")
+    function setValor($campo, $dados = [], $valorDefault = "")
     {
         if (!empty(set_value($campo))) {
             return set_value($campo);
