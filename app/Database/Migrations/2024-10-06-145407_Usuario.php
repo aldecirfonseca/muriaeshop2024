@@ -25,7 +25,7 @@ class Usuario extends Migration
                 'constraint'        => '60',
                 'null'              => false,
             ],
-            "StatusRegistro" => [
+            "statusRegistro" => [
                 'type'              => 'INT',
                 'constraint'        => '11',
                 'null'              => false,

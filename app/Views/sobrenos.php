@@ -1,6 +1,6 @@
-<?= $this->extend('layout/layout_default') ?>
+<?= $this->extend("templates/layoutSite"); ?>
 
-<?= $this->section('conteudo') ?>
+<?= $this->section("conteudo") ?>
 
 <section>
     <div class="container">
@@ -23,7 +23,7 @@
 
                         <article class="row mt-5">
                             <p class="col-12 text-center">
-                                <img class="author_img" src="assets/img/centro-de-distribuicao.jpg" alt="">
+                                <img class="author_img" src="<?= base_url("assets/img/centro-de-distribuicao.jpg") ?>" alt="">
                             </p>
                             
                             <h4 class="col-12 text-center">Muriáe Shop</h4>

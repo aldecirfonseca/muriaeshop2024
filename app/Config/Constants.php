@@ -92,3 +92,19 @@ define('EVENT_PRIORITY_NORMAL', 100);
  * @deprecated Use \CodeIgniter\Events\Events::PRIORITY_HIGH instead.
  */
 define('EVENT_PRIORITY_HIGH', 10);
+
+// Definindo configurações do e-mail
+
+define("CONFIG_EMAIL", [
+    'SMTPHost' 	=> 'smtp.gmail.com',
+    'SMTPPort' 	=> 465,
+    'SMTPUser' 	=> 'contatofoody@gmail.com',
+    'SMTPPass' 	=> 'sua_chave',
+	'SMTPCrypto'=> 'ssl',
+    'protocol'  => 'smtp',
+    'validate'  => TRUE,
+    'mailType'  => 'html',
+    'charset'   => 'utf-8',
+    'CRLF'  	=> "\r\n",
+    'newline'   => "\r\n"
+]);

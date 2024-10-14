@@ -161,7 +161,7 @@
      * @param mixed $valorDefault 
      * @return mixed
      */
-    function setValor($campo, $dados = [], $valorDefault = "")
+    function setaValor($campo, $dados = [], $valorDefault = "")
     {
         if (!empty(set_value($campo))) {
             return set_value($campo);

@@ -1,275 +1,60 @@
-<?= $this->extend('layout/layout_default') ?>
+<?= $this->extend("templates/layoutSite"); ?>
 
-<?= $this->section('conteudo') ?>
+<?= $this->section("conteudo") ?>
 
 <main class="site-main">
 
     <section class="section-margin calc-60px">
         <div class="container">
-            <div class="section-intro pb-60px">
-                <h2>Produtos <span class="section-intro__style">em alta</span></h2>
-            </div>
-            <div class="owl-carousel owl-theme" id="bestSellerCarousel">
-                <div class="card text-center card-product">
-                    <div class="card-product__img">
-                        <img class="img-fluid" src="assets/img/produto/produto1.png" alt="">
-                        <ul class="card-product__imgOverlay">
-                            <li><button title="Adicionar ao carrinho"><i class="ti-shopping-cart"></i></button></li>
-                            <li><button title="Curtir"><i class="ti-heart"></i></button></li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <p>Acessórios</p>
-                        <h4 class="card-product__title"><a href="produtoDetalhe/100">Quartz Belt Watch</a></h4>
-                        <p class="card-product__price">R$ 150.00</p>
-                    </div>
-                </div>
+            <?php 
+                if (count($this->data) > 0 ) {
 
-                <div class="card text-center card-product">
-                    <div class="card-product__img">
-                        <img class="img-fluid" src="assets/img/produto/produto2.png" alt="">
-                        <ul class="card-product__imgOverlay">
-                            <li><button title="Adicionar ao carrinho"><i class="ti-shopping-cart"></i></button></li>
-                            <li><button title="Curtir"><i class="ti-heart"></i></button></li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <p>Beleza</p>
-                        <h4 class="card-product__title"><a href="index.php?view=produto-detalhe">Hidratante facial</a></h4>
-                        <p class="card-product__price">R$ 150.00</p>
-                    </div>
-                </div>
+                    foreach ($this->data as $aDepartamento) {
 
-                <div class="card text-center card-product">
-                    <div class="card-product__img">
-                        <img class="img-fluid" src="assets/img/produto/produto3.png" alt="">
-                        <ul class="card-product__imgOverlay">
-                            <li><button title="Adicionar ao carrinho"><i class="ti-shopping-cart"></i></button></li>
-                            <li><button title="Curtir"><i class="ti-heart"></i></button></li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <p>Decoração</p>
-                        <h4 class="card-product__title"><a href="index.php?view=produto-detalhe">Luz Flash para Sala</a></h4>
-                        <p class="card-product__price">R$ 150.00</p>
-                    </div>
-                </div>
+                        if (count($aDepartamento['aProduto']) > 0) {
+                            ?>
 
-                <div class="card text-center card-product">
-                    <div class="card-product__img">
-                        <img class="img-fluid" src="assets/img/produto/produto4.png" alt="">
-                        <ul class="card-product__imgOverlay">
-                            <li><button title="Adicionar ao carrinho"><i class="ti-shopping-cart"></i></button></li>
-                            <li><button title="Curtir"><i class="ti-heart"></i></button></li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <p>Decoração</p>
-                        <h4 class="card-product__title"><a href="index.php?view=produto-detalhe">Refletor Luz negra</a></h4>
-                        <p class="card-product__price">R$ 150.00</p>
-                    </div>
-                </div>
+                            <div class="section-intro pb-60px">
+                                <h2><span class="section-intro__style"><?= $aDepartamento['descricao'] ?></span></h2>
+                            </div>
 
-                <div class="card text-center card-product">
-                    <div class="card-product__img">
-                        <img class="img-fluid" src="assets/img/produto/produto1.png" alt="">
-                        <ul class="card-product__imgOverlay">
-                            <li><button title="Adicionar ao carrinho"><i class="ti-shopping-cart"></i></button></li>
-                            <li><button title="Curtir"><i class="ti-heart"></i></button></li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <p>Acessórios</p>
-                        <h4 class="card-product__title"><a href="index.php?view=produto-detalhe">Quartz Belt Watch</a></h4>
-                        <p class="card-product__price">R$ 150.00</p>
-                    </div>
-                </div>
+                            <div class="row">
 
-                <div class="card text-center card-product">
-                    <div class="card-product__img">
-                        <img class="img-fluid" src="assets/img/produto/produto2.png" alt="">
-                        <ul class="card-product__imgOverlay">
-                            <li><button title="Adicionar ao carrinho"><i class="ti-shopping-cart"></i></button></li>
-                            <li><button title="Curtir"><i class="ti-heart"></i></button></li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <p>Beleza</p>
-                        <h4 class="card-product__title"><a href="index.php?view=produto-detalhe">Hidratante facial</a></h4>
-                        <p class="card-product__price">R$ 150.00</p>
-                    </div>
-                </div>
+                                <?php foreach ($aDepartamento['aProduto'] as $aProduto): ?>
 
-                <div class="card text-center card-product">
-                    <div class="card-product__img">
-                        <img class="img-fluid" src="assets/img/produto/produto3.png" alt="">
-                        <ul class="card-product__imgOverlay">
-                            <li><button title="Adicionar ao carrinho"><i class="ti-shopping-cart"></i></button></li>
-                            <li><button title="Curtir"><i class="ti-heart"></i></button></li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <p>Decoração</p>
-                        <h4 class="card-product__title"><a href="index.php?view=produto-detalhe">Luz Flash para Sala</a></h4>
-                        <p class="card-product__price">R$ 150.00</p>
-                    </div>
-                </div>
+                                    <div class="col-md-6 col-lg-4 col-xl-3">
+                                        <div class="card text-center card-product">
+                                            <div class="card-product__img">
+                                                <img class="card-img" src="<?= base_url("uploads/produto/". $aProduto['aImagem'][0]['nomeArquivo'] ) ?>" alt="" width="210" height="210">
+                                                <ul class="card-product__imgOverlay">
+                                                    <li><button title="Adicionar ao carrinho"><i class="ti-shopping-cart"></i></button></li>
+                                                    <li><button title="Curtir"><i class="ti-heart"></i></button></li>
+                                                </ul>
+                                            </div>
+                                            <div class="card-body">
+                                                <h4 class="card-product__title"><a href="<?= base_url() ?>/produtodetalhe/<?= $aProduto['id'] ?>"><?= $aProduto['descricao'] ?></a></h4>
+                                                <p class="card-product__price">R$ <?= formatValor($aProduto['precoVenda']) ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                <div class="card text-center card-product">
-                    <div class="card-product__img">
-                        <img class="img-fluid" src="assets/img/produto/produto4.png" alt="">
-                        <ul class="card-product__imgOverlay">
-                            <li><button title="Adicionar ao carrinho"><i class="ti-shopping-cart"></i></button></li>
-                            <li><button title="Curtir"><i class="ti-heart"></i></button></li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <p>Decoração</p>
-                        <h4 class="card-product__title"><a href="index.php?view=produto-detalhe">Refletor Luz negra</a></h4>
-                        <p class="card-product__price">R$ 150.00</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                                <?php endforeach; ?>
+                            </div>
 
-
-    <section class="section-margin calc-60px">
-        <div class="container">
-            <div class="section-intro pb-60px">
-                <p>Itens mais populares</p>
-                <h2>Tendências <span class="section-intro__style">de mercado</span></h2>
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div class="card text-center card-product">
-                        <div class="card-product__img">
-                            <img class="card-img" src="assets/img/produto/produto1.png" alt="">
-                            <ul class="card-product__imgOverlay">
-                                <li><button title="Adicionar ao carrinho"><i class="ti-shopping-cart"></i></button></li>
-                                <li><button title="Curtir"><i class="ti-heart"></i></button></li>
-                            </ul>
-                        </div>
-                        <div class="card-body">
-                            <p>Acessórios</p>
-                            <h4 class="card-product__title"><a href="index.php?pagina=produtoDetalhe">Quartz Belt Watch</a></h4>
-                            <p class="card-product__price">R$ 150.00</p>
+                            <?php
+                        }
+                    }
+                    
+                } else {
+                    ?>
+                    <div class="row mt-5">
+                        <div class="col-md-12">
+                            <h5 class="text-danger">Não há Categorias/produtos para exibir</h5>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div class="card text-center card-product">
-                        <div class="card-product__img">
-                            <img class="card-img" src="assets/img/produto/produto2.png" alt="">
-                            <ul class="card-product__imgOverlay">
-                                <li><button title="Adicionar ao carrinho"><i class="ti-shopping-cart"></i></button></li>
-                                <li><button title="Curtir"><i class="ti-heart"></i></button></li>
-                            </ul>
-                        </div>
-                        <div class="card-body">
-                            <p>Beleza</p>
-                            <h4 class="card-product__title"><a href="index.php?view=produto-detalhe">Hidratante facial</a></h4>
-                            <p class="card-product__price">R$ 150.00</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div class="card text-center card-product">
-                        <div class="card-product__img">
-                            <img class="card-img" src="assets/img/produto/produto3.png" alt="">
-                            <ul class="card-product__imgOverlay">
-                                <li><button title="Adicionar ao carrinho"><i class="ti-shopping-cart"></i></button></li>
-                                <li><button title="Curtir"><i class="ti-heart"></i></button></li>
-                            </ul>
-                        </div>
-                        <div class="card-body">
-                            <p>Decoração</p>
-                            <h4 class="card-product__title"><a href="index.php?view=produto-detalhe">Luz Flash para Sala</a></h4>
-                            <p class="card-product__price">R$ 150.00</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div class="card text-center card-product">
-                        <div class="card-product__img">
-                            <img class="card-img" src="assets/img/produto/produto4.png" alt="">
-                            <ul class="card-product__imgOverlay">
-                                <li><button title="Adicionar ao carrinho"><i class="ti-shopping-cart"></i></button></li>
-                                <li><button title="Curtir"><i class="ti-heart"></i></button></li>
-                            </ul>
-                        </div>
-                        <div class="card-body">
-                            <p>Decoração</p>
-                            <h4 class="card-product__title"><a href="index.php?view=produto-detalhe">Refletor Luz negra</a></h4>
-                            <p class="card-product__price">R$ 150.00</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div class="card text-center card-product">
-                        <div class="card-product__img">
-                            <img class="card-img" src="assets/img/produto/produto5.png" alt="">
-                            <ul class="card-product__imgOverlay">
-                                <li><button title="Adicionar ao carrinho"><i class="ti-shopping-cart"></i></button></li>
-                                <li><button title="Curtir"><i class="ti-heart"></i></button></li>
-                            </ul>
-                        </div>
-                        <div class="card-body">
-                            <p>Acessórios</p>
-                            <h4 class="card-product__title"><a href="index.php?view=produto-detalhe">Pasta escritório</a></h4>
-                            <p class="card-product__price">R$ 150.00</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div class="card text-center card-product">
-                        <div class="card-product__img">
-                            <img class="card-img" src="assets/img/produto/produto6.png" alt="">
-                            <ul class="card-product__imgOverlay">
-                                <li><button title="Adicionar ao carrinho"><i class="ti-shopping-cart"></i></button></li>
-                                <li><button title="Curtir"><i class="ti-heart"></i></button></li>
-                            </ul>
-                        </div>
-                        <div class="card-body">
-                            <p>Brinquedo infantil</p>
-                            <h4 class="card-product__title"><a href="index.php?view=produto-detalhe">Mimiatura Ferrari</a></h4>
-                            <p class="card-product__price">R$ 150.00</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div class="card text-center card-product">
-                        <div class="card-product__img">
-                            <img class="card-img" src="assets/img/produto/produto7.png" alt="">
-                            <ul class="card-product__imgOverlay">
-                                <li><button title="Adicionar ao carrinho"><i class="ti-shopping-cart"></i></button></li>
-                                <li><button title="Curtir"><i class="ti-heart"></i></button></li>
-                            </ul>
-                        </div>
-                        <div class="card-body">
-                            <p>Acessórios</p>
-                            <h4 class="card-product__title"><a href="index.php?view=produto-detalhe">Caixa de som JBL</a></h4>
-                            <p class="card-product__price">R$ 150.00</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4 col-xl-3">
-                    <div class="card text-center card-product">
-                        <div class="card-product__img">
-                            <img class="card-img" src="assets/img/produto/produto8.png" alt="">
-                            <ul class="card-product__imgOverlay">
-                                <li><button title="Adicionar ao carrinho"><i class="ti-shopping-cart"></i></button></li>
-                                <li><button title="Curtir"><i class="ti-heart"></i></button></li>
-                            </ul>
-                        </div>
-                        <div class="card-body">
-                            <p>Acessórios</p>
-                            <h4 class="card-product__title"><a href="#">Carregador Portátil Apple</a></h4>
-                            <p class="card-product__price">R$ 150.00</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    <?php
+                }
+            ?>
         </div>
     </section>
 

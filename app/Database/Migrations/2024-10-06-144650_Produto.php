@@ -35,7 +35,7 @@ class Produto extends Migration
                     'constraint'        => 11,
                     'comment'           => '1=Ativo;2=Inativo;3=Indisponível',
                 ],
-                'largura' => [
+                'altura' => [
                     'type'              => 'INT',
                     'constraint'        => 11,
                     'null'              => true,
