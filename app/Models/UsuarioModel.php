@@ -45,54 +45,15 @@ class UsuarioModel extends Model
     }
 
     /**
-     * insertDadosSuperUser
+     * insertUsuario
      *
      * @param array $aPessoa 
      * @param array $aEndereco 
      * @param array $aUsuario 
      * @return integer
      */
-    public function insertDadosSuperUser() 
+    public function insertUsuario($aPessoa, $aEndereco, $aUsuario) 
     {
-        $CidadeModel = new CidadeModel();
-
-        $aCidade = $CidadeModel->getCidade("MG", "Muriae");
-        $created_at = date("Y-m-d H:i:s");
-
-        $aPessoa = [
-            "nome"		        => "Muriae Shop",
-            "ddd1"		        => "32",
-            "celular1"		    => "987654321",
-            "statusRegistro"	=> 1,
-            "created_at"		=> $created_at,
-            "updated_at"		=> $created_at
-        ]; 
-
-        $aEndereco = [
-            "tipoEndereco"      => 1,
-            "logradouro"        => "Praça Irmã Annina Bisegna",
-            "numero"            => "40",
-            "complemento"       => "",
-            "bairro"            => "Centro",
-            "cep"               => "36880083",
-            "cidade_id"         => $aCidade['id'],
-            "created_at"		=> $created_at,
-            "updated_at"		=> $created_at
-        ];
-        
-        $aUsuario = [
-            "nome"				=> "Administrador",
-            "nivel"				=> 1,                   // 1 = Administrador
-            "statusRegistro"	=> 1,
-            "email"				=> "administrador@muriaeshop.com.br",
-            "senha"				=> password_hash("fasm@2024", PASSWORD_DEFAULT),
-            "pessoa_id"		    => null,
-            "created_at"		=> $created_at,
-            "updated_at"		=> $created_at
-        ];
-
-        //
-
         $db = \Config\Database::connect();
 
         $db->transBegin();      // Inicia controle de transação

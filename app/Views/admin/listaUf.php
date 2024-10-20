@@ -7,8 +7,8 @@
 
     <?= exibeTitulo("Uf") ?>
     
-    <div class="table-responsive">
-        <table class="table table-hover table-bordered table-striped table-sm">
+    <div class="table-responsive table_custom">
+        <table class="table table-hover table-bordered table-striped table-sm" id="tbListaUf">
             <thead>
                 <tr class="text-weight-bold">
                     <td>Sigla</td>
@@ -35,5 +35,7 @@
             </tbody>
         </table>
     </div>
+
+<?= getDataTables("tbListaUf") ?>
 
 <?= $this->endSection() ?>

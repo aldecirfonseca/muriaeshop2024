@@ -2,8 +2,10 @@
 
 namespace App\Controllers;
 
+use App\Models\DepartamentoModel;
 use App\Models\ProdutoImagemModel;
 use App\Models\ProdutoModel;
+use App\Models\UsuarioModel;
 
 class Home extends BaseController
 {
@@ -15,7 +17,13 @@ class Home extends BaseController
 	public function index()
 	{
 		$ProdutoModel = new ProdutoModel();
+		
+		if (is_null(session()->get('aMenuDepartamento'))) {
 
+			$DepartamentoModel = new DepartamentoModel();
+			$DepartamentoModel->getMenuDepartamento();
+		}
+		
 		return view('home', $ProdutoModel->getListaHome());
 	}
 
@@ -83,8 +91,83 @@ class Home extends BaseController
 	 */
 	public function criarNovaConta()
 	{
-		return view("criar-nova-conta");
+		$this->dados['data'] = [];
+		return view("criarNovaConta", $this->dados);
 	}
+
+	/**
+	 * gravarNovaConta
+	 *
+	 * @return void
+	 */
+	public function gravarNovaConta()
+	{
+		$UsuarioModel = new UsuarioModel();
+
+		$post = $this->request->getPost();
+		
+		// verificar se usuário já tem conta
+		$temUsuario = $UsuarioModel->where("email", $post['email'])->first();
+
+		if (is_null($temUsuario)) {
+
+			if (trim($post['senha']) == trim($post['confirmaSenha'])) {
+
+				$created_at = date("Y-m-d H:i:s");
+	
+				$aPessoa = [
+					"nome"		        => $post['nome'],
+					"ddd1"		        => $post['ddd1'],
+					"celular1"		    => $post['celular1'],
+					"statusRegistro"	=> 1,
+					"created_at"		=> $created_at,
+					"updated_at"		=> $created_at
+				]; 
+		
+				$aEndereco = [
+					"tipoEndereco"      => 1,
+					"created_at"		=> $created_at,
+					"updated_at"		=> $created_at
+				];
+				
+				$aUsuario = [
+					"nome"				=> $post['nome'],
+					"nivel"				=> 1,                   // 1 = Administrador
+					"statusRegistro"	=> 1,
+					"email"				=> $post['email'],
+					"senha"				=> password_hash(trim($post['senha']), PASSWORD_DEFAULT),
+					"pessoa_id"		    => null,
+					"created_at"		=> $created_at,
+					"updated_at"		=> $created_at
+				];
+		
+				if ($UsuarioModel->insertUsuario($aPessoa, $aEndereco, $aUsuario) > 0) {
+					return redirect("criarNovaConta")->with("msgSucess", "Conta Criada com sucesso");
+				} else {
+	
+					session()->set("msgError", $UsuarioModel->errors());
+	
+					return view('criarNovaConta', [
+						'data'		=> $post,
+						'errors' 	=> $UsuarioModel->errors()
+					]);
+				}
+	
+			} else {
+				session()->setFlashdata("msgError", "Senhas não conferem.");
+			} 
+			
+		} else {
+			session()->setFlashdata("msgError", "Usuário já existe na plataforma.");
+		}
+
+		return view('criarNovaConta', [
+				'data'		=> $post,
+				'errors' 	=> []
+			]);
+
+	}
+
 
 	/**
 	 * 	Carrega a view carrinho de compras

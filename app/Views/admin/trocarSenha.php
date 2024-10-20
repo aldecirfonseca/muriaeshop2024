@@ -6,7 +6,7 @@
     <div class="container">
         <div class="blog-banner">
             <div class="mt-5 mb-5 text-left">
-                <h1 style="color: #384aeb;">Login / Criar nova conta</h1>
+                <h1 style="color: #384aeb;">Trocar Senha</h1>
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@
                         <p>
                             Crie uma conta para poder curtir, comentar, marcar como lido nossos conteúdos criados para você.
                         </p>
-                        <a class="button button-account" href="<?= base_url() ?>criarNovaConta">Crie sua conta aqui</a>
+                        <a class="button button-account" href="<?= base_url() ?>/criarNovaConta">Crie sua conta aqui</a>
                     </div>
                 </div>
             </div>

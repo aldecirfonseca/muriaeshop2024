@@ -23,11 +23,11 @@ class Departamento extends BaseController
      */
     public function index()
     {
-        $data['dados'] = $this->DepartamentoModel
+        $this->dados['data'] = $this->DepartamentoModel
                             ->orderBy("descricao")
                             ->findAll();
 
-        return view("admin/listaDepartamento", $data);
+        return view("admin/listaDepartamento", $this->dados);
     }
 
     /**
@@ -39,15 +39,15 @@ class Departamento extends BaseController
      */
     public function form($action = null, $id = null)
     {
-        $data['action'] = $action;
-        $data['data']   = null;
-        $data['errors'] = [];
+        $this->dados['action']  = $action;
+        $this->dados['data']    = null;
+        $this->dados['errors']  = [];
 
         if ($action != "new") {
-            $data['data'] = $this->DepartamentoModel->find($id);
+            $this->dados['data'] = $this->DepartamentoModel->find($id);
         }
 
-        return view("admin/formDepartamento", $data);
+        return view("admin/formDepartamento", $this->dados);
     }
 
     /**
@@ -64,6 +64,7 @@ class Departamento extends BaseController
             "descricao"         => $post['descricao'],
             "statusRegistro"    => $post['statusRegistro']
         ])) {
+            $this->DepartamentoModel->getMenuDepartamento();        // atualiza session de departamentos do menu do web site
             return redirect()->to("/Departamento")->with('msgSucess', "Dados atualizados com sucesso.");
         } else {
             return view("admin/formDepartamento", [
@@ -82,6 +83,7 @@ class Departamento extends BaseController
     public function delete()
     {
         if ($this->DepartamentoModel->delete($this->request->getPost('id'))) {
+            $this->DepartamentoModel->getMenuDepartamento();        // atualiza session de departamentos do menu do web site
             return redirect()->to('/Departamento')->with('msgSucess', 'Dados excluídos com sucesso.');
         } else {
             return redirect()->to('/Departamento')->with('msgError', 'Erro ao excluir dados.');

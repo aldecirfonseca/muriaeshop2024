@@ -26,14 +26,17 @@ class DepartamentoModel extends BaseModel
     /**
      * getMenuDepartamento
      *
-     * @return array
+     * @return void
      */
     public function getMenuDepartamento()
     {
-        return $this
-                ->select('id, descricao')
+        session()->set(
+            "aMenuDepartamento",
+            $this->select('id, descricao')
                 ->where('statusRegistro', 1)
                 ->orderBy('descricao')
-                ->findAll();
+                ->findAll()
+        );
+        
     }
 }

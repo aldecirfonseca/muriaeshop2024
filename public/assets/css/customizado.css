@@ -39,3 +39,7 @@
     transform: translateY(-50%);
     z-index: 1
 }
+
+.table_custom {
+    overflow-x: hidden;
+}

@@ -7,8 +7,8 @@
     <?= exibeTitulo("Produto") ?>
 
 	<section class="login_box_area mb-5">
-        <div class="table-responsive">
-            <table class="table table-hover table-bordered table-striped table-sm">
+        <div class="table-responsive table_custom">
+            <table class="table table-hover table-bordered table-striped table-sm" id="tbListaProduto">
                 <thead>
                     <tr class="text-weight-bold">
                         <td>Descrição</td>
@@ -52,5 +52,7 @@
         </div>
 	</section>
 </div>
+
+<?= getDataTables("tbListaProduto") ?>
 
 <?= $this->endSection() ?>

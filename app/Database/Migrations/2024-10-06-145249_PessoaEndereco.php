@@ -26,27 +26,33 @@ class PessoaEndereco extends Migration
             'logradouro' => [
                 'type'              => 'VARCHAR',
                 'constraint'        => 60,
+                'null'              => true,
             ],
             'numero' => [
                 'type'              => 'VARCHAR',
                 'constraint'        => 10,
+                'null'              => true,
             ],
             'complemento' => [
                 'type'              => 'VARCHAR',
                 'constraint'        => 20,
+                'null'              => true,
             ],
 
             'bairro' => [
                 'type'              => 'VARCHAR',
                 'constraint'        => 40,
+                'null'              => true,
             ],
             'cep' => [
                 'type'              => 'VARCHAR',
                 'constraint'        => 8,
+                'null'              => true,
             ],
             'cidade_id' => [
                 'type'              => 'INT',
                 'constraint'        => 10,
+                'null'              => true,
             ],
             'created_at' => [
                 'type'              => 'DATETIME',

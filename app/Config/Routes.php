@@ -14,6 +14,7 @@ $routes->get('contato', 'Home::contato');
 $routes->post('contatoEnviaEmail', 'Home::contatoEnviaEmail');
 $routes->get('login', 'Home::login');
 $routes->get('criarNovaConta', 'Home::criarNovaConta');
+$routes->post('gravarNovaConta', 'Home::gravarNovaConta');
 $routes->get('carrinhoCompras', 'Home::carrinhoCompras');
 $routes->get('carrinhoPagamento', 'Home::carrinhoPagamento');
 $routes->get('carrinhoConfirmacao', 'Home::carrinhoConfirmacao');

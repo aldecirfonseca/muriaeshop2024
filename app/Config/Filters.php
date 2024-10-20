@@ -78,7 +78,9 @@ class Filters extends BaseFilters
                         'sobrenos', 
                         'contato', 
                         'contatoEnviaEmail', 
-                        'produtodetalhe/*'
+                        'produtodetalhe/*',
+                        'criarNovaConta',
+                        'gravarNovaConta'
 					]
 				]
             // 'honeypot',
