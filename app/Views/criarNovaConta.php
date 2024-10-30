@@ -22,7 +22,7 @@
                         <p>
                             Faça seu login e curta, comente, marcar como lido nossos conteúdos criados para você.
                         </p>
-                        <a class="button button-account" href="<?= base_url() ?>/Home/login">Login</a>
+                        <a class="button button-account" href="/login">Login</a>
                     </div>
                 </div>
             </div>

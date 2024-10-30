@@ -132,7 +132,7 @@ class Home extends BaseController
 				
 				$aUsuario = [
 					"nome"				=> $post['nome'],
-					"nivel"				=> 1,                   // 1 = Administrador
+					"nivel"				=> 11,                   // 11 = Cliente
 					"statusRegistro"	=> 1,
 					"email"				=> $post['email'],
 					"senha"				=> password_hash(trim($post['senha']), PASSWORD_DEFAULT),

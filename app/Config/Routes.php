@@ -28,6 +28,7 @@ $routes->group('Login', function ($routes) {
 
 // sistema
 $routes->group('Sistema', function ($routes) {
+    $routes->get('/', 'Sistema::home');
     $routes->get('home', 'Sistema::home');
 });
 

@@ -13,6 +13,17 @@ class Auth implements FilterInterface
         if ((bool)session()->getTempData("isLoggedIn") != true) {
             return redirect()->to('/home');
         }
+
+        if ((bool)session()->getTempData("userNivel") == 2) {
+
+            $segments = $request->getUri()->getSegments(0);
+
+            if (count($segments) > 0) {
+                if (in_array($segments[0], ['Departamento', 'Produto', 'Uf'])) {
+                    return redirect()->to('/Sistema')->with("msgError", "Você não tem permissão para acessar está funcionalidade");
+                }
+            }
+        }
     }
 
     //

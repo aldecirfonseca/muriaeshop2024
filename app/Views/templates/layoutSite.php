@@ -54,6 +54,7 @@
                                 <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>/contato">Contato</a></li>
 
                                 <?php
+
                                 if (session()->getTempdata('isLoggedIn') != true) {
                                     ?>
                                     <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>/login">Entre ou cadastre-se</a></li>
@@ -61,7 +62,7 @@
                                 } else {
                                     ?>
                                     <li class="nav-item submenu dropdown">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?= session()->getTempdata('userNome') ?></a>
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?= substr(session()->getTempdata('userNome'), 0 , 15) ?></a>
                                         <ul class="dropdown-menu">
                                             <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>/Login/signOut">Sair</a></li>
                                             <li class="nav-item"><a class="nav-link" href="#">Meus pedidos</a></li>
