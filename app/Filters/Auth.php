@@ -14,7 +14,7 @@ class Auth implements FilterInterface
             return redirect()->to('/home');
         }
 
-        if ((bool)session()->getTempData("userNivel") == 2) {
+        if ((int)session()->getTempData("userNivel") == 2) {
 
             $segments = $request->getUri()->getSegments(0);
 

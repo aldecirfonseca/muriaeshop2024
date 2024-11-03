@@ -15,13 +15,33 @@
 <div class="product_image_area">
     <div class="container">
         <div class="row s_product_inner">
+
             <div class="col-lg-6">
-                <div class="owl-carousel owl-theme s_Product_carousel">
-                    <div class="single-prd-item">
-                        <img class="img-fluid" src="<?= base_url("uploads/produto/" . $this->data['imagem'][0]['nomeArquivo']) ?>" alt="">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <?php
+                            $active = true;
+                            foreach ($imagem as $value) {
+                                ?>                            
+                                <div class="carousel-item <?= ($active ? 'active': '') ?>">
+                                    <img src="<?= base_url("uploads/produto/" . $value['nomeArquivo']) ?>" class="d-block w-100" alt="...">
+                                </div>
+                                <?php
+                                $active = false;
+                            }
+                        ?>
                     </div>
+                    <button class="carousel-control-prev" style="border-bottom: 0px; border:none!important;" type="button" data-target="#carouselExampleControls" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" style="border-bottom: 0px; border:none!important;" type="button" data-target="#carouselExampleControls" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </button>
                 </div>
             </div>
+
             <div class="col-lg-5 offset-lg-1">
                 <div class="s_product_text">
                     <h3><?= $this->data['descricao'] ?></h3>
@@ -46,7 +66,7 @@
                                             class="ti ti-angle-down"></i></button>
                         
                     </div>
-                    <a class="button primary-btn" href="#">Comprar</a>
+                    <a class="button primary-btn" onclick="addProdutoCarrinho(<?= $this->data['id'] ?>)">Comprar</a>
                     <div class="card_area d-flex align-items-center">
                         <a class="icon_btn" href="#"><i class="ti ti-heart"></i></a>
                     </div>
@@ -177,5 +197,7 @@
     </div>
 </section>
 </section>
+
+<script src="<?= base_url("assets/js/carrinhocompras.js") ?>" type="text/Javascript"></script>
 
 <?= $this->endSection() ?>

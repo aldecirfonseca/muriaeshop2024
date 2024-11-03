@@ -15,6 +15,10 @@ $routes->post('contatoEnviaEmail', 'Home::contatoEnviaEmail');
 $routes->get('login', 'Home::login');
 $routes->get('criarNovaConta', 'Home::criarNovaConta');
 $routes->post('gravarNovaConta', 'Home::gravarNovaConta');
+$routes->post('addProdutoCarrinho', 'Home::addProdutoCarrinho');
+$routes->post('atualizaProdutoCarrinho', 'Home::atualizaProdutoCarrinho');
+$routes->post('atualizaFrete', 'Home::atualizaFrete');
+$routes->post('atualizaCarrinho', 'Home::atualizaCarrinho');
 $routes->get('carrinhoCompras', 'Home::carrinhoCompras');
 $routes->get('carrinhoPagamento', 'Home::carrinhoPagamento');
 $routes->get('carrinhoConfirmacao', 'Home::carrinhoConfirmacao');
@@ -58,5 +62,27 @@ $routes->group('Produto', function ($routes) {
     $routes->post('store', 'Produto::store');
     $routes->post('delete', 'Produto::delete');
     $routes->get('excluirImagem/(:num)/(:segment)/(:segment)', 'Produto::excluirImagem/$1/$2/$3');
+});
 
+// Crud Pessoa
+$routes->group('Pessoa', function ($routes) {
+    $routes->get('form/(:segment)/(:num)', 'Pessoa::form/$1/$2');
+    $routes->post('store', 'Pessoa::store');
+    $routes->get('getCidade/(:num)', 'Pessoa::getCidade/$1');
+});
+
+// Crud PessoaEndereco
+$routes->group('PessoaEndereco', function ($routes) {
+    $routes->get('/', 'PessoaEndereco::index');
+    $routes->get('lista', 'PessoaEndereco::index');
+    $routes->get('form/(:segment)/(:num)', 'PessoaEndereco::form/$1/$2');
+    $routes->post('store', 'PessoaEndereco::store');
+    $routes->post('delete', 'PessoaEndereco::delete');
+});
+
+// Crud Pedido
+$routes->group('Pedido', function ($routes) {
+    $routes->get('/', 'Pedido::index');
+    $routes->get('lista', 'Pedido::index');
+    $routes->get('viewPedido/(:num)', 'Pedido::viewPedido/$1');
 });

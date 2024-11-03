@@ -57,21 +57,24 @@
 
                                 if (session()->getTempdata('isLoggedIn') != true) {
                                     ?>
-                                    <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>/login">Entre ou cadastre-se</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>login">Entre ou cadastre-se</a></li>
                                     <?php
                                 } else {
                                     ?>
                                     <li class="nav-item submenu dropdown">
                                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><?= substr(session()->getTempdata('userNome'), 0 , 15) ?></a>
                                         <ul class="dropdown-menu">
-                                            <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>/Login/signOut">Sair</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#">Meus pedidos</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#">Perfil</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>Login/signOut">Sair</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>Pessoa/form/update/<?= session()->get('userPessoa_id') ?>">Perfil</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>PessoaEndereco">Meus Endereços</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>Pedido">Meus pedidos</a></li>
                                             <li class="nav-item"><a class="nav-link" href="#">Trocar Senha</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>/Departamento">Departamento</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>Produto">Produto</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>/Uf">UF</a></li>
-                                        </ul>
+                                            <?php if (session()->get('userNivel') == 1): ?>
+                                                <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>Departamento">Departamento</a></li>
+                                                <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>Produto">Produto</a></li>
+                                                <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>Uf">UF</a></li>
+                                            <?php endif; ?>
+                                            </ul>
                                     </li>                            
                                     <?php
                                 }
@@ -92,8 +95,17 @@
                             </div>
 
                             <ul class="nav-shop">
-                                <a href="<?= base_url() ?>/carrinhoCompras">
-                                    <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle">3</span></button> </li>
+
+                                <?php
+                                    $aCarrinho = session()->get("CarrinhoItens");
+
+                                    if (is_null($aCarrinho)) {
+                                        $aCarrinho = [];
+                                    }
+                                ?>
+
+                                <a href="<?= base_url() ?>carrinhoCompras">
+                                    <li class="nav-item"><button><i class="ti-shopping-cart"></i><span class="nav-shop__circle"><?= count($aCarrinho) ?></span></button> </li>
                                 </a>
                             </ul>                    
 

@@ -80,7 +80,14 @@ class Filters extends BaseFilters
                         'contatoEnviaEmail', 
                         'produtodetalhe/*',
                         'criarNovaConta',
-                        'gravarNovaConta'
+                        'gravarNovaConta',
+                        'addProdutoCarrinho',
+                        "atualizaProdutoCarrinho",
+                        'atualizaFrete',
+                        "atualizaCarrinho",
+                        'carrinhoCompras',
+                        'carrinhoPagamento',
+                        'carrinhoConfirmacao'
 					]
 				]
             // 'honeypot',

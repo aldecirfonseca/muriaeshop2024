@@ -38,7 +38,7 @@
                                     <h1 style="color: #384aeb;">' . $subTitulo . '</h1>
                                 </div>
                                 <div class="col-2 mt-5 mb-5 text-right">
-                                    <a href="' .  base_url() . $parametro['controller'] . $link . '" class="btn btn-secondary btn-sm btn-icons-crud" title="Novo"><i class="fa fa-' . $icone .'" aria-hidden="true"></i></a>    
+                                    <a href="' .  base_url() . $parametro['controller'] . $link . '" class="btn btn-secondary btn-sm btn-icons-crud" title="Novo"><i class="fa fa-' . $icone .'" aria-hidden="true"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -134,6 +134,23 @@
             return "Ativo";
         } else if ($status == 2) {
             return "Inativo";            
+        }
+    }
+
+    /**
+     * mostraTipoEndereco
+     *
+     * @param int $tipo 
+     * @return string
+     */
+    function mostraTipoEndereco($tipo = 0)
+    {
+        if ($tipo == 0) {
+            
+        } else if ($tipo == 1) {
+            return "Cobrança";
+        } else if ($tipo == 2) {
+            return "Entrega";
         }
     }
 

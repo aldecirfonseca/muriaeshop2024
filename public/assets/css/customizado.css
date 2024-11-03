@@ -43,3 +43,7 @@
 .table_custom {
     overflow-x: hidden;
 }
+
+.disabled {
+    pointer-events: none;
+}

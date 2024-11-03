@@ -13,27 +13,29 @@
 </section>
 <section class="order_details section-margin--small">
     <div class="container">
-        <p class="text-center billing-alert">Obrigado. Seu pedido foi recebido.</p>
-        <div class="row mb-5">
+        <?php if ($origem != "view"): ?>
+            <p class="text-center billing-alert">Obrigado. Seu pedido foi recebido.</p>
+        <?php endif; ?>
+        <div class="row mb-3">
             <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
                 <div class="confirmation-card">
                     <h3 class="billing-title">Informações do Pedido</h3>
                     <table class="order-rable">
                         <tr>
                             <td>Número do Pedido</td>
-                            <td>: 60235</td>
+                            <td>: <?= $aPedido['id'] ?></td>
                         </tr>
                         <tr>
                             <td>Data</td>
-                            <td>: 15/08/2021 23:44</td>
+                            <td>: <?= date( "d/m/Y H:m:i", strtotime($aPedido['created_at'])) ?></td>
                         </tr>
                         <tr>
                             <td>Total</td>
-                            <td>: R$ 2.210,00</td>
+                            <td>: R$ <?= formatValor($aPedido['valorTotal']) ?></td>
                         </tr>
                         <tr>
                             <td>Forma de Pagamento</td>
-                            <td>: Cartão de crédito</td>
+                            <td>: <?= ($aPedido['id'] == 1 ? 'Boleto' : 'PIX') ?></td>
                         </tr>
                     </table>
                 </div>
@@ -44,19 +46,26 @@
                     <table class="order-rable">
                         <tr>
                             <td>Logradouro</td>
-                            <td>: Av. Monteiro de Castro, 600-Barra</td>
+                            <td>: 
+                                <?php 
+                                    echo trim($aEnderecoCob['logradouro']) .
+                                        (trim($aEnderecoCob['numero']) != "" ? ", " . trim($aEnderecoCob['numero']) : "") .
+                                        (trim($aEnderecoCob['complemento']) != "" ? ", " . trim($aEnderecoCob['complemento']) : "") . 
+                                        (trim($aEnderecoCob['bairro']) != "" ? " - " . trim($aEnderecoCob['bairro']) : "");
+                                ?>
+                            </td>
                         </tr>
                         <tr>
                             <td>Cidade</td>
-                            <td>: Muriaé</td>
+                            <td>: <?= $aEnderecoCob['cidade'] ?></td>
                         </tr>
                         <tr>
                             <td>UF</td>
-                            <td>: MG</td>
+                            <td>: <?= $aEnderecoCob['uf'] ?></td>
                         </tr>
                         <tr>
                             <td>CEP</td>
-                            <td>: 36880-048</td>
+                            <td>: <?= $aEnderecoCob['cep'] ?></td>
                         </tr>
                     </table>
                 </div>
@@ -67,19 +76,26 @@
                     <table class="order-rable">
                         <tr>
                             <td>Logradouro</td>
-                            <td>: Av. Monteiro de Castro, 600-Barra</td>
+                            <td>: 
+                                <?php 
+                                    echo trim($aEnderecoEnt['logradouro']) .
+                                        (trim($aEnderecoEnt['numero']) != "" ? ", " . trim($aEnderecoEnt['numero']) : "") .
+                                        (trim($aEnderecoEnt['complemento']) != "" ? ", " . trim($aEnderecoEnt['complemento']) : "") . 
+                                        (trim($aEnderecoEnt['bairro']) != "" ? " - " . trim($aEnderecoEnt['bairro']) : "");
+                                ?>
+                            </td>
                         </tr>
                         <tr>
                             <td>Cidade</td>
-                            <td>: Muriaé</td>
+                            <td>: <?= $aEnderecoEnt['cidade'] ?></td>
                         </tr>
                         <tr>
                             <td>UF</td>
-                            <td>: MG</td>
+                            <td>: <?= $aEnderecoEnt['uf'] ?></td>
                         </tr>
                         <tr>
                             <td>CEP</td>
-                            <td>: 36880-048</td>
+                            <td>: <?= $aEnderecoEnt['cep'] ?></td>
                         </tr>
                     </table>
                 </div>
@@ -97,40 +113,38 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Hidratante Facial</td>
-                            <td>x 2</td>
-                            <td class="text-right">R$ 720,00</td>
-                        </tr>
-                        <tr>
-                            <td>Caixa de som JBL</td>
-                            <td>x 1</td>
-                            <td class="text-right">R$ 720,00</td>
-                        </tr>
-                        <tr>
-                            <td>Luz Flash para sala</td>
-                            <td>x 3</td>
-                            <td class="text-right">R$ 720,00</td>
-                        </tr>
+
+                        <?php foreach ($aPedidoItem as $item): ?>
+                            <tr>
+                                <td><?= $item['descricao'] ?></td>
+                                <td>x <?= $item['quantidade'] ?></td>
+                                <td class="text-right">R$ <?= formatValor($item['valorTotal']) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                     <tfoot>
                         <tr>
                             <th colspan="2">Subtotal</th>
-                            <td class="text-right">R$ 2.160,00</td>
+                            <td class="text-right">R$ <?= formatValor($aPedido['valorProdutos']) ?></td>
                         </tr>
                         <tr>
-                            <th colspan="2">Frete <span>SEDEX: R$ 50.00</span></th>
-                            <td class="text-right">R$ 50,00</td>
+                            <th colspan="2">Frete <span><?= ($aPedido['tipoFrete'] == 1 ? 'grátis' : 'SEDEX' ) ?>: R$ <?= formatValor($aPedido['valorFrete']) ?></span></th>
+                            <td class="text-right">R$ <?= formatValor($aPedido['valorFrete']) ?></td>
                         </tr>
                         <tr>
                             <th colspan="2">Total</th>
-                            <td class="text-right">R$ 2.210,00</td>
+                            <td class="text-right">R$ <?= formatValor($aPedido['valorTotal']) ?></td>
                         </tr>
                     </tfoot>
                 </table>
             </div>
         </div>
     </div>
+
+    <?php if ($origem == "view"): ?>
+        <a href="<?= base_url() ?>Pedido" class="button button-login ml-3 mt-3">Voltar</a>
+    <?php endif; ?>
+
 </section>
 
 <?= $this->endSection() ?>

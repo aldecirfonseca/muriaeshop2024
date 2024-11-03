@@ -26,102 +26,83 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="<?= base_url('assets/img/produto/produto1.png') ?>" style="width: 100px; height: 100px" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <p>Minimalistic shop for multipurpose use</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h5>R$ 360,00</h5>
-                            </td>
-                            <td>
-                                <div class="product_count">
-                                    <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                        class="input-text qty">
-                                    <button
-                                        onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                        class="increase items-count" type="button"><i
-                                            class="ti ti-angle-up"></i></button>
-                                    <button
-                                        onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                        class="reduced items-count" type="button"><i
-                                            class="ti ti-angle-down"></i></button>
-                                </div>
-                            </td>
-                            <td>
-                                <h5>R$ 720,00</h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="<?= base_url('assets/img/produto/produto2.png') ?>" style="width: 100px; height: 100px" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <p>Minimalistic shop for multipurpose use</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h5>R$ 360,00</h5>
-                            </td>
-                            <td>
-                                <div class="product_count">
-                                    <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                        class="input-text qty">
-                                    <button
-                                        onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++; return false;"
-                                        class="increase items-count" type="button"><i
-                                            class="ti ti-angle-up"></i></button>
-                                    <button
-                                        onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                        class="reduced items-count" type="button"><i
-                                            class="ti ti-angle-down"></i></button>
-                                </div>
-                            </td>
-                            <td>
-                                <h5>R$ 720,00</h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="media">
-                                    <div class="d-flex">
-                                        <img src="<?= base_url('assets/img/produto/produto5.png') ?>" style="width: 100px; height: 100px" alt="">
-                                    </div>
-                                    <div class="media-body">
-                                        <p>Minimalistic shop for multipurpose use</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <h5>R$ 360,00</h5>
-                            </td>
-                            <td>
-                                <div class="product_count">
-                                    <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantidade:"
-                                        class="input-text qty">
-                                    <button
-                                        onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                        class="increase items-count" type="button"><i
-                                            class="ti ti-angle-up"></i></button>
-                                    <button
-                                        onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                        class="reduced items-count" type="button"><i
-                                            class="ti ti-angle-down"></i></button>
-                                </div>
-                            </td>
-                            <td>
-                                <h5>R$ 720,00</h5>
-                            </td>
-                        </tr>
+
+                        <?php
+
+                            $aCarrinho      = session()->get("Carrinho");
+                            $aCarrinhoItens = session()->get("CarrinhoItens");
+                            $subTotal       = 0;
+                            $totalFinal     = 0;
+                            $tipoFrete      = 0;
+
+                            if (!is_null($aCarrinho)) {
+                                if ($aCarrinho['tipoFrete'] == 1) {
+                                    $tipoFrete      = 1;
+                                } elseif ($aCarrinho['tipoFrete'] == 2) {
+                                    $tipoFrete      = 2;
+                                    $totalFinal     = 15;
+                                }
+
+                            }
+
+                            if (is_null($aCarrinhoItens)) {
+                                $aCarrinhoItens = [];
+                            }
+
+                            if (count($aCarrinhoItens) == 0) {
+                                ?>
+                                <tr>
+                                    <td colspan="5">
+                                        <p class="text-center">Seu carrinho está vazio!</p>
+                                    </td>
+                                </tr>
+                                <?php
+                            } else {
+
+                                foreach ($aCarrinhoItens AS $produto) {
+                                    ?>
+
+                                    <tr>
+                                        <td>
+                                            <div class="media">
+                                                <div class="d-flex">
+                                                    <img src="<?= base_url('uploads/produto/' . $produto['imagem']) ?>" style="width: 100px; height: 100px" alt="">
+                                                </div>
+                                                <div class="media-body">
+                                                    <p><?= $produto['descricao'] ?></p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <h5>R$ <?= formatValor($produto['valorUnitario']) ?></h5>
+                                        </td>
+                                        <td>
+                                            <div class="product_count">
+                                                <input type="text" name="quantidade_<?= $produto['produto_id'] ?>" id="quantidade_<?= $produto['produto_id'] ?>" maxlength="12" value="<?= formatValor($produto['quantidade'], 0) ?>" title="Quantidade"
+                                                    class="input-text qty">
+                                                <button
+                                                    onclick="atualizaQuantidade(1, <?= $produto['produto_id'] ?>, <?= $produto['valorUnitario'] ?>)"
+                                                    class="increase items-count" type="button"><i
+                                                        class="ti ti-angle-up"></i></button>
+                                                <button
+                                                    onclick="atualizaQuantidade(0, <?= $produto['produto_id'] ?>, <?= $produto['valorUnitario'] ?>)"
+                                                    class="reduced items-count" type="button"><i
+                                                        class="ti ti-angle-down"></i></button>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <h5 id="totalItem_<?= $produto['produto_id'] ?>">R$ <?= formatValor($produto['valorTotal']) ?></h5>
+                                        </td>
+                                    </tr>
+
+                                    <?php
+
+                                    $subTotal += $produto['valorTotal'];
+                                    $totalFinal += $produto['valorTotal'];
+                                }
+                            }
+                        ?>
+
                         <tr>
                             <td>
                             </td>
@@ -131,7 +112,7 @@
                                 <h5>Subtotal</h5>
                             </td>
                             <td style="width: 150px !important;">
-                                <h5>R$ 2.160,00</h5>
+                                <h5 id="subTotal">R$ <?= formatValor($subTotal) ?></h5>
                             </td>
                         </tr>
                         <tr class="shipping_area">
@@ -145,8 +126,8 @@
                             <td>
                                 <div class="shipping_box">
                                     <ul class="list">
-                                        <li class="active"><a href="#">Frete grátis</a></li>
-                                        <li><a href="#">SEDEX: R$ 15,00</a></li>
+                                        <li id="tipoFrete1" <?= ($tipoFrete == 1 ? 'class="active"' : '') ?>><a onclick="selecionaFrete(1)">Frete grátis</a></li>
+                                        <li id="tipoFrete2" <?= ($tipoFrete == 2 ? 'class="active"' : '') ?>><a onclick="selecionaFrete(2)">SEDEX: R$ 15,00</a></li>
                                     </ul>
                                 </div>
                             </td>
@@ -161,7 +142,7 @@
                                 <h5>Total</h5>
                             </td>
                             <td style="width: 150px !important;">
-                                <h5>R$ 2.160,00</h5>
+                                <h5 id="totalFinal">R$ <?= formatValor($totalFinal) ?></h5>
                             </td>
                         </tr>
 
@@ -175,7 +156,7 @@
                             <td>
                                 <div class="checkout_btn_inner d-flex align-items-center">
                                     <a class="gray_btn" href="index.php">Continue comprando</a>
-                                    <a class="primary-btn ml-2" href="<?= base_url() ?>/carrinhoPagamento">Pagamento</a>
+                                    <a id="btnPagamento" class="primary-btn ml-2 <?= ($tipoFrete == 0 ? 'disabled' : '') ?>" href="<?= base_url() ?>carrinhoPagamento">Pagamento</a>
                                 </div>
                             </td>
                         </tr>
@@ -185,5 +166,71 @@
         </div>
     </div>
 </section>
+
+<script>
+    function atualizaQuantidade(tipo, produto_id, valorUnitario) {
+
+        var quantidade  = document.getElementById('quantidade_' + parseInt(produto_id));
+        var subTotal    = parseFloat(document.getElementById('subTotal').innerHTML.replaceAll(".", "").replaceAll(",",".").replaceAll("R$ ", ""));
+        var totalFinal  = parseFloat(document.getElementById('totalFinal').innerHTML.replaceAll(".", "").replaceAll(",",".").replaceAll("R$ ", ""));
+        var baseURL = location.protocol + "//" + location.hostname;
+
+        if (tipo == 0) {
+            quantidade.value = parseFloat(quantidade.value) - 1;
+            subTotal -= valorUnitario;
+            totalFinal -= valorUnitario;
+        } else {
+            quantidade.value = parseFloat(quantidade.value) + 1;
+            subTotal += valorUnitario;
+            totalFinal += valorUnitario;
+        }
+
+        itemValorTotal = quantidade.value * valorUnitario;
+        
+        document.getElementById('totalItem_' + parseInt(produto_id)).innerHTML = "R$ " + itemValorTotal.toLocaleString('pt-br',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('subTotal').innerHTML = "R$ " + subTotal.toLocaleString('pt-br',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('totalFinal').innerHTML = "R$ " + totalFinal.toLocaleString('pt-br',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+        $.ajax({
+            method: "POST",
+            url: "<?= base_url() ?>atualizaProdutoCarrinho",
+            data: {"produto_id":produto_id, "quantidade":quantidade.value},
+            success: function(data) {
+            }
+        });
+
+        if ((subTotal == 0) || (quantidade.value == 0)) {
+            window.location.href = baseURL + '/carrinhoCompras';
+        }
+    }
+
+    function selecionaFrete(tipoFrete) {
+
+        var totalFinal  = parseFloat(document.getElementById('totalFinal').innerHTML.replaceAll(".", "").replaceAll(",",".").replaceAll("R$ ", ""));
+
+        if (tipoFrete == 1) {
+            document.getElementById('tipoFrete1').className = "active";
+            document.getElementById('tipoFrete2').className = "";
+            totalFinal -= 15
+
+        } else {
+            document.getElementById('tipoFrete1').className = "";
+            document.getElementById('tipoFrete2').className = "active";
+            totalFinal += 15
+        }
+
+        document.getElementById('totalFinal').innerHTML = "R$ " + totalFinal.toLocaleString('pt-br',{minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('btnPagamento').className = "primary-btn ml-2";
+
+        $.ajax({
+            method: "POST",
+            url: "<?= base_url() ?>atualizaFrete",
+            data: {"tipoFrete":tipoFrete},
+            success: function(data) {
+            }
+        });
+    }
+
+</script>
 
 <?= $this->endSection() ?>

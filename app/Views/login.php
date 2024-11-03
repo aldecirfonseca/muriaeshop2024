@@ -29,7 +29,8 @@
             <div class="col-lg-6">
                 <div class="login_form_inner">
                     <h3>Entre com seu Login</h3>
-                    <form method="POST" class="row login_form" action="<?= base_url() ?>/Login/signIn" id="contactForm">
+                    <form method="POST" class="row login_form" action="<?= base_url() ?>Login/signIn" id="contactForm">
+                        <input type="hidden" name="destino" id="destino" value="Sistema/home">
                         <div class="col-md-12 form-group">
                             <input type="text" class="form-control" id="email" name="email" placeholder="E-mail" onfocus="this.placeholder = ''" onblur="this.placeholder = 'E-mail'" value="<?= set_value('email') ?>">
                         </div>

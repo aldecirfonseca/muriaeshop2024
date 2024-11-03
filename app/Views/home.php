@@ -27,7 +27,7 @@
                                             <div class="card-product__img">
                                                 <img class="card-img" src="<?= base_url("uploads/produto/". $aProduto['aImagem'][0]['nomeArquivo'] ) ?>" alt="" width="210" height="210">
                                                 <ul class="card-product__imgOverlay">
-                                                    <li><button title="Adicionar ao carrinho"><i class="ti-shopping-cart"></i></button></li>
+                                                    <li><button title="Adicionar ao carrinho" onclick="addProdutoCarrinho(<?= $aProduto['id'] ?>)"><i class="ti-shopping-cart"></i></button></li>
                                                     <li><button title="Curtir"><i class="ti-heart"></i></button></li>
                                                 </ul>
                                             </div>
@@ -83,5 +83,7 @@
     </section>
 
 </main>
+
+<script src="<?= base_url("assets/js/carrinhocompras.js") ?>" type="text/Javascript"></script>
 
 <?= $this->endSection() ?>

@@ -104,7 +104,7 @@ class Login extends BaseController
 
 					// 
 
-					return redirect()->to('/Sistema/home');
+					return redirect()->to('/' . $post['destino']);
 
 					//
 

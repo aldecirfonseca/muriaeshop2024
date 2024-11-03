@@ -3,6 +3,9 @@
 namespace App\Controllers;
 
 use App\Models\DepartamentoModel;
+use App\Models\PedidoItemModel;
+use App\Models\PedidoModel;
+use App\Models\PessoaEnderecoModel;
 use App\Models\ProdutoImagemModel;
 use App\Models\ProdutoModel;
 use App\Models\UsuarioModel;
@@ -23,7 +26,7 @@ class Home extends BaseController
 			$DepartamentoModel = new DepartamentoModel();
 			$DepartamentoModel->getMenuDepartamento();
 		}
-		
+
 		return view('home', $ProdutoModel->getListaHome());
 	}
 
@@ -168,6 +171,111 @@ class Home extends BaseController
 
 	}
 
+	/**
+	 * addProdutoCarrinho
+	 *
+	 * @return void
+	 */
+	public function addProdutoCarrinho()
+	{
+		$ProdutoModel 		= new ProdutoModel();
+		$ProdutoImagemModel = new ProdutoImagemModel();
+
+		$post 			= $this->request->getPost();
+		$aProduto 		= $ProdutoModel->where("id", $post['produto_id'])->first();
+		$aProdutoImagem = $ProdutoImagemModel->where("produto_id", $post['produto_id'])->orderBy('created_at')->first();
+
+		$aCarrinhoItens = session()->get("CarrinhoItens");
+
+		if (is_null($aCarrinhoItens)) {
+			$aCarrinhoItens = [];
+		}
+
+		$posicao = array_search($post['produto_id'], array_column($aCarrinhoItens, 'produto_id'));
+
+		if ($posicao === false) {
+
+			$aCarrinhoItens[] = [
+				'produto_id' => $post['produto_id'],
+				'descricao' => $aProduto['descricao'],
+				"quantidade" => 1,
+				"valorUnitario" => $aProduto['precoVenda'],
+				"valorTotal" => $aProduto['precoVenda'],
+				'imagem' => $aProdutoImagem['nomeArquivo']
+			];
+
+		} else {
+
+			$aCarrinhoItens[$posicao]['quantidade'] = $aCarrinhoItens[$posicao]['quantidade'] + 1;
+			$aCarrinhoItens[$posicao]['valorTotal'] = $aCarrinhoItens[$posicao]['quantidade'] * $aCarrinhoItens[$posicao]['valorUnitario'];
+
+		}
+
+		session()->set("CarrinhoItens", $aCarrinhoItens);
+	}
+
+	/**
+	 * atualizaProdutoCarrinho
+	 *
+	 * @return void
+	 */
+	public function atualizaProdutoCarrinho()
+	{
+		$post = $this->request->getPost();
+		$aCarrinhoItens = session()->get("CarrinhoItens");
+
+		$posicao = array_search((int)$post['produto_id'], array_column($aCarrinhoItens, 'produto_id'));
+
+		if ($posicao !== false) {
+
+			if ($post['quantidade'] == 0) {
+				array_splice($aCarrinhoItens, $posicao, 1);
+			} else {
+				$aCarrinhoItens[$posicao]['quantidade'] = $post['quantidade'];
+				$aCarrinhoItens[$posicao]['valorTotal'] = $aCarrinhoItens[$posicao]['quantidade'] * $aCarrinhoItens[$posicao]['valorUnitario'];
+			}
+		} 
+
+		session()->set("CarrinhoItens", $aCarrinhoItens);
+	}
+
+	/**
+	 * atualizaFrete
+	 *
+	 * @return void
+	 */
+	public function atualizaFrete() 
+	{
+		$post = $this->request->getPost();
+
+		$aCarrinho = session()->get("Carrinho");
+
+		$aCarrinho["tipoFrete"] = $post['tipoFrete'];
+
+		session()->set("Carrinho", $aCarrinho);
+	}
+
+
+	/**
+	 * atualizaFormaPagamento
+	 *
+	 * @return void
+	 */
+	public function atualizaCarrinho() 
+	{
+		$post = $this->request->getPost();
+
+		$aCarrinho = session()->get("Carrinho");
+
+		$aCarrinho["formaPagamento"] 	= $post['formaPagamento'];
+		$aCarrinho['aceitaTermos']		= $post['aceitaTermos'];
+
+		if ($post['pessoaendereco_id'] > 0) {
+			$aCarrinho['pessoaendereco_id'] = $post['pessoaendereco_id'];
+		}
+
+		session()->set("Carrinho", $aCarrinho);
+	}
 
 	/**
 	 * 	Carrega a view carrinho de compras
@@ -186,7 +294,16 @@ class Home extends BaseController
 	 */
 	public function carrinhoPagamento()
 	{
-		return view('carrinho-pagamento');
+		$PessoaEnderecoModel = new PessoaEnderecoModel();
+
+		$this->dados['aPessoaEndereco'] = $PessoaEnderecoModel
+												->select("pessoaendereco.*, cidade.nome as cidade, uf.sigla as uf")
+												->join("cidade", "cidade.id = pessoaendereco.cidade_id")
+												->join("uf", "uf.id = cidade.uf_id")
+												->where('pessoaendereco.pessoa_id', session()->get('userPessoa_id') )
+												->findAll();
+
+		return view('carrinho-pagamento', $this->dados);
 	}
 
 	/**
@@ -196,7 +313,77 @@ class Home extends BaseController
 	 */
 	public function carrinhoConfirmacao()
 	{
-		return view('carrinho-confirmacao');
+		$PedidoModel = new PedidoModel();
+		$PedidoItemModel = new PedidoItemModel();
+		$PessoaEnderecoModel = new PessoaEnderecoModel();
+
+		$aCarrinho = session()->get("Carrinho");
+		$aCarrinhoItens = session()->get("CarrinhoItens");
+
+		// preparando o pedido
+
+		$aCarrinho['pessoa_id'] = session()->get('userPessoa_id');
+		$aCarrinho['statusRegistro'] = 1;
+
+		$valorProdutos = 0;
+		$valorFrete = 0;
+
+		for ($xyx = 0; $xyx < count($aCarrinhoItens); $xyx++) {
+			$valorProdutos += $aCarrinhoItens[$xyx]['valorTotal'];
+
+			unset($aCarrinhoItens[$xyx]['descricao']);
+			unset($aCarrinhoItens[$xyx]['imagem']);
+		}
+
+		if ($aCarrinho['tipoFrete'] == 2) {
+			$valorFrete = 15;
+		}
+
+		$aCarrinho['valorProdutos'] = $valorProdutos;
+		$aCarrinho['valorFrete'] 	= $valorFrete;
+		$aCarrinho['valorTotal'] 	= ($valorProdutos + $valorFrete);
+
+		unset($aCarrinho['aceitaTermos']);
+		unset($aCarrinho['endereco_id']);
+		
+		// Status
+
+		$aStatus['statusRegistro'] 	= 1;
+		$aStatus['usuario_id'] 		= session()->get('userId');
+
+		$pedido_id = $PedidoModel->insertPedido($aCarrinho, $aCarrinhoItens, $aStatus);
+
+		if ($pedido_id == 0) {
+			redirect()->to("/carrinhoPagamento");
+		} else {
+
+			$this->dados['origem'] 		= "confirmacaoPedido";
+			$this->dados['aPedido'] 	= $PedidoModel->where('id', $pedido_id)->first();
+			$this->dados['aPedidoItem'] = $PedidoItemModel
+												->select("pedidoitem.*, produto.descricao")
+												->join("produto", "produto.id = pedidoitem.produto_id")
+												->where('pedido_id', $pedido_id)
+												->findAll();
+			
+			$this->dados['aEnderecoCob'] = $PessoaEnderecoModel
+													->select("pessoaendereco.*, cidade.nome as cidade, uf.sigla as uf")
+													->join("cidade", "cidade.id = pessoaendereco.cidade_id")
+													->join("uf", "uf.id = cidade.uf_id")
+													->where(['tipoEndereco' => 1,'pessoaendereco.id'=> $this->dados['aPedido']['pessoaendereco_id']])
+													->first();
+
+			$this->dados['aEnderecoEnt'] = $PessoaEnderecoModel
+													->select("pessoaendereco.*, cidade.nome as cidade, uf.sigla as uf")
+													->join("cidade", "cidade.id = pessoaendereco.cidade_id")
+													->join("uf", "uf.id = cidade.uf_id")
+													->where('pessoaendereco.id', $this->dados['aPedido']['pessoaendereco_id'])
+													->first();
+
+			session()->set("Carrinho", null);
+			session()->set("CarrinhoItens", null);
+
+			return view('carrinho-confirmacao', $this->dados);
+		}
 	}
 
 	/**
