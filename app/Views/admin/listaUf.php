@@ -5,7 +5,7 @@
 
     ?>
 
-    <?= exibeTitulo("Uf") ?>
+    <?= exibeTitulo("Uf", ['acao' => 'new']) ?>
     
     <div class="table-responsive table_custom">
         <table class="table table-hover table-bordered table-striped table-sm" id="tbListaUf">

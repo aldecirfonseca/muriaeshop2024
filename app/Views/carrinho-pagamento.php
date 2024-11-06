@@ -203,8 +203,6 @@
         var formaPagamento = 0;
         var aceitaTermos = 0;
 
-        (formaPagamentoBoleto.checked);
-
         if (formaPagamentoBoleto.checked == true) {
             formaPagamento = 1;
         } else if (formaPagamentoPix.checked == true) {

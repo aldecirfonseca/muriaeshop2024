@@ -42,6 +42,7 @@ class PessoaEndereco extends BaseController
 
         $this->dados['action']  = $action;
         $this->dados['aUfs']    = $UfModel->orderBy('sigla')->findAll();
+        $this->dados['aCidade'] = [];
 
         if ($action != "new") {
             $this->dados['data']    = $this->model->getByPessoaEndereco($id);

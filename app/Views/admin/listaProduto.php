@@ -4,7 +4,7 @@
 
 <div class="container">
 
-    <?= exibeTitulo("Produto") ?>
+    <?= exibeTitulo("Produto", ['acao' => 'new']) ?>
 
 	<section class="login_box_area mb-5">
         <div class="table-responsive table_custom">

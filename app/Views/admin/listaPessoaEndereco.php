@@ -2,11 +2,10 @@
 
     $this->extend('templates/layoutSite');
     $this->section('conteudo');
+?>
 
-    ?>
+    <?= exibeTitulo("Meus Endereços", ["controller" => "PessoaEndereco", "acao" => "new"]) ?>
 
-    <?= exibeTitulo("Meus Endereços") ?>
-    
     <div class="table-responsive table_custom">
         <table class="table table-hover table-bordered table-striped table-sm" id="tbListaPessoaEndereco">
             <thead>

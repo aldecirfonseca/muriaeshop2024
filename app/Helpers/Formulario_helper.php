@@ -19,15 +19,14 @@
 
         if ($parametro['acao'] == 'new') {
             $subTitulo .= ' - Novo';
+            $link       = '/form/new/0';
+            $icone      = 'plus';        
         } else  if ($parametro['acao'] == 'update') {
             $subTitulo .= ' - Alteração';
         } else  if ($parametro['acao'] == 'delete') {
             $subTitulo .= ' - Exclusão';
         } else  if ($parametro['acao'] == 'view') {
             $subTitulo .= ' - Visualização';
-        } else  if ($parametro['acao'] == 'lista') {
-            $link       = '/form/new/0';
-            $icone      = 'plus';
         }
 
         $texto = '
