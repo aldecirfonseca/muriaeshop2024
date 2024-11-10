@@ -44,7 +44,7 @@
                                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Departamentos</a>
                                         <ul class="dropdown-menu">
                                             <?php foreach(session()->aMenuDepartamento AS $valueMenuDepartamento): ?>
-                                                <li class="nav-item"><a class="nav-link" href="#"><?= $valueMenuDepartamento['descricao'] ?></a></li>
+                                                <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>homeDepartamento/<?= $valueMenuDepartamento['id'] ?>"><?= $valueMenuDepartamento['descricao'] ?></a></li>
                                             <?php endforeach; ?>
                                         </ul>
                                     </li>                                  

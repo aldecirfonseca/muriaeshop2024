@@ -73,6 +73,7 @@ class Filters extends BaseFilters
             'auth' => [
 				'except' => [
                         'home', 
+                        'homeDepartamento/*',
                         'login', 
                         'login/*',
                         'sobrenos', 

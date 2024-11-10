@@ -31,6 +31,24 @@ class Home extends BaseController
 	}
 
 	/**
+	 * index
+	 *
+	 * @return void
+	 */
+	public function homeDepartamento($departamento_id)
+	{
+		$ProdutoModel = new ProdutoModel();
+		
+		if (is_null(session()->get('aMenuDepartamento'))) {
+
+			$DepartamentoModel = new DepartamentoModel();
+			$DepartamentoModel->getMenuDepartamento();
+		}
+
+		return view('home', $ProdutoModel->getListaHome(["id" => $departamento_id]));
+	}
+
+	/**
 	 * Carrega a view Sobre nós
 	 *
 	 * @return void

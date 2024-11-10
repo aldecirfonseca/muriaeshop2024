@@ -9,6 +9,7 @@ use CodeIgniter\Router\RouteCollection;
 
 $routes->get('/', 'Home::index');
 $routes->get('home', 'Home::index');
+$routes->get('homeDepartamento/(:num)', 'Home::homeDepartamento/$1');
 $routes->get('sobrenos', 'Home::sobrenos');
 $routes->get('contato', 'Home::contato');
 $routes->post('contatoEnviaEmail', 'Home::contatoEnviaEmail');

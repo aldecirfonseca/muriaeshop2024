@@ -74,13 +74,19 @@ class ProdutoModel extends BaseModel
      *
      * @return array
      */
-    public function getListaHome()  
+    public function getListaHome($aFiltro = [])  
     {
 		$DepartamentoModel = new DepartamentoModel();
 		$ProdutoModel = new ProdutoModel();
 		$ProdutoImagemModel = new ProdutoImagemModel();
 
-		$dados = $DepartamentoModel->where("statusRegistro", 1)->orderBy('descricao')->findAll();
+		$DepartamentoModel->where("statusRegistro", 1);
+
+        if (count($aFiltro) > 0) {
+            $DepartamentoModel->where($aFiltro);
+        }
+
+        $dados = $DepartamentoModel->orderBy('descricao')->findAll();
 
 		for ($yyy = 0; $yyy < count($dados); $yyy++) {
 
@@ -91,15 +97,26 @@ class ProdutoModel extends BaseModel
                                                 'produto.departamento_id' => $dados[$yyy]['id']
                                             ])->orderBy("departamentoDescricao, descricao")
                                             ->findAll();
-		
-			for ($xxx = 0; $xxx < count($dados[$yyy]['aProduto']); $xxx++) {
-				$dados[$yyy]['aProduto'][$xxx]['aImagem'] = $ProdutoImagemModel
-                                                            ->where('produto_id', $dados[$yyy]['aProduto'][$xxx]['id'])
-                                                            ->orderBy('nomeArquivo')
-                                                            ->findAll();
-			}
+            if (count($dados[$yyy]['aProduto']) > 0) {
 
+                for ($xxx = 0; $xxx < count($dados[$yyy]['aProduto']); $xxx++) {
+                    $dados[$yyy]['aProduto'][$xxx]['aImagem'] = $ProdutoImagemModel
+                                                                ->where('produto_id', $dados[$yyy]['aProduto'][$xxx]['id'])
+                                                                ->orderBy('nomeArquivo')
+                                                                ->findAll();
+                }
+
+            }
 		}
+
+        // Caso esteja filtrando 1 departamento e o mesmo não tenha produtos
+        
+        if (count($aFiltro) > 0) {
+
+            if (count($dados[0]['aProduto']) == 0) {
+                $dados = array();
+            }
+        }
 
         return $dados;
     }
